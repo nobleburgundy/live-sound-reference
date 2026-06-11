@@ -480,13 +480,13 @@
       </div>
       <div class="phase-body">
         <div class="inst-step">
-          <div class="callout-blue"><strong>ZED-12FX EQ layout (mono channels):</strong> Each channel has <strong>HF</strong> (high frequency, shelving), <strong>Mid</strong> (sweepable &mdash; turn the frequency knob to choose where, then cut/boost), and <strong>LF</strong> (low frequency, shelving). There's also a <strong>HPF button</strong> (high-pass filter, ~80 Hz) that cuts everything below ~80 Hz with one press.</div>
+          <div class="callout-blue"><strong>ZED-12FX EQ layout (mono channels):</strong> Each channel has <strong>HF</strong> (high frequency, shelving), <strong>Mid</strong> (sweepable &mdash; turn the frequency knob to choose where, then cut/boost), and <strong>LF</strong> (low frequency, shelving). Right under the gain knob there's a <strong>100 Hz button</strong> &mdash; this is the high-pass filter (HPF). Press it in to cut everything below 100 Hz. <strong>Turn this on for every channel except bass.</strong></div>
         </div>
 
         <div class="inst-step">
           <div class="inst-name"><span class="ch-badge">CH 1</span> Vocals EQ</div>
           <ul>
-            <li>Press the <strong>HPF button</strong> &mdash; always on for vocals. Cuts low-end rumble, handling noise, and stage vibration.</li>
+            <li>Press the <strong>100 Hz button</strong> (under the gain knob) &mdash; always on for vocals. Cuts low-end rumble, handling noise, and stage vibration.</li>
             <li><strong>LF:</strong> If the voice sounds muddy or boomy, cut a little (turn counter-clockwise).</li>
             <li><strong>Mid:</strong> Sweep the frequency knob to the <strong>200&ndash;400 Hz</strong> range. If you hear boxiness or honk, cut slightly. Then sweep to <strong>3&ndash;5 kHz</strong> &mdash; a gentle boost here adds presence and clarity.</li>
             <li><strong>HF:</strong> A small boost adds "air" and sibilance. Leave flat if the mic is already bright (e.g., SM58 doesn't usually need HF boost).</li>
@@ -497,7 +497,7 @@
         <div class="inst-step">
           <div class="inst-name"><span class="ch-badge">CH 2</span> Fiddle EQ</div>
           <ul>
-            <li>Press <strong>HPF</strong> &mdash; on, but listen carefully. If it thins out the fiddle's body too much, you may leave it off. On the ZED-12FX the HPF is around 80 Hz, which is usually safe for fiddle.</li>
+            <li>Press the <strong>100 Hz button</strong> &mdash; on. The fiddle's lowest note (G3) is ~196 Hz, well above 100 Hz, so you won't lose any musical content. This cleans up pickup rumble and stage vibration.</li>
             <li><strong>Mid:</strong> This is the critical one. Sweep to <strong>2&ndash;4 kHz</strong> and <strong>cut</strong>. DI fiddle is almost always scratchy and harsh in this range. This single cut makes the biggest difference.</li>
             <li><strong>LF:</strong> If the fiddle sounds thin after the mid cut, add a small LF boost to bring back body (<strong>200&ndash;250 Hz</strong> range).</li>
             <li><strong>HF:</strong> Leave flat or cut slightly if there's too much string noise.</li>
@@ -507,7 +507,7 @@
         <div class="inst-step">
           <div class="inst-name"><span class="ch-badge">CH 3</span> Electric guitar EQ</div>
           <ul>
-            <li>Press <strong>HPF</strong> &mdash; on. Cuts low-end rumble from the amp and mic.</li>
+            <li>Press the <strong>100 Hz button</strong> &mdash; on. Cuts low-end rumble from the amp and mic. The guitar doesn't need anything below 100 Hz.</li>
             <li><strong>Mid:</strong> Sweep to <strong>~300 Hz</strong>. If the guitar sounds boxy or muddy, cut here.</li>
             <li>Then sweep to <strong>2&ndash;5 kHz</strong> and <strong>cut slightly</strong>. This clears space for the fiddle's presence range. The guitar doesn't need to dominate here &mdash; it has its amp volume to fill the room.</li>
             <li><strong>LF:</strong> Usually leave flat. The guitar's low-mid grind (100&ndash;500 Hz) is its character.</li>
@@ -518,7 +518,7 @@
         <div class="inst-step">
           <div class="inst-name"><span class="ch-badge">CH 4</span> Bass EQ</div>
           <ul>
-            <li><strong>HPF: OFF.</strong> Bass needs its low end &mdash; don't cut it.</li>
+            <li><strong>100 Hz button: OFF.</strong> Do <em>not</em> press this on the bass channel. Bass needs everything below 100 Hz &mdash; that's where its fundamental lives.</li>
             <li><strong>Mid:</strong> Sweep to <strong>300&ndash;500 Hz</strong> and <strong>cut</strong> if the bass sounds boxy or muddy. This is the most common bass fix.</li>
             <li><strong>LF:</strong> A small boost at ~80 Hz adds warmth and thump. Don't overdo it &mdash; too much low end eats headroom and muddies the whole mix.</li>
             <li><strong>HF:</strong> Usually leave flat. A touch of boost can bring out finger/pick attack if the bass sounds too dull.</li>
@@ -607,7 +607,7 @@
     <div class="card card-accent-coral">
       <h3>Electric guitar (mic on amp)</h3>
       <hr class="divider">
-      <div class="row"><span class="label">HPF:</span><span class="val"><span class="badge badge-on">ON</span> cuts rumble/mud</span></div>
+      <div class="row"><span class="label">100 Hz btn:</span><span class="val"><span class="badge badge-on">ON</span> cuts rumble/mud</span></div>
       <div class="row"><span class="label">~300 Hz:</span><span class="val">Cut if boxy or muddy</span></div>
       <div class="row"><span class="label">~2-5 kHz:</span><span class="val">Cut slightly &mdash; leave this range for fiddle</span></div>
       <div class="row"><span class="label">Monitor:</span><span class="val">Guitarist may not need much &mdash; they have their amp</span></div>
@@ -615,7 +615,7 @@
     <div class="card card-accent-teal">
       <h3>Bass guitar (DI)</h3>
       <hr class="divider">
-      <div class="row"><span class="label">HPF:</span><span class="val"><span class="badge badge-off">OFF</span> bass needs low end</span></div>
+      <div class="row"><span class="label">100 Hz btn:</span><span class="val"><span class="badge badge-off">OFF</span> bass needs low end</span></div>
       <div class="row"><span class="label">~300-500 Hz:</span><span class="val">Cut to reduce boxy mud</span></div>
       <div class="row"><span class="label">~80 Hz:</span><span class="val">Small boost for warmth</span></div>
       <div class="row"><span class="label">Gain:</span><span class="val"><span class="badge badge-warn">Watch</span> bass eats headroom fast</span></div>
@@ -623,7 +623,7 @@
     <div class="card card-accent-purple">
       <h3>Vocals (mic)</h3>
       <hr class="divider">
-      <div class="row"><span class="label">HPF:</span><span class="val"><span class="badge badge-on">ON</span> always</span></div>
+      <div class="row"><span class="label">100 Hz btn:</span><span class="val"><span class="badge badge-on">ON</span> always</span></div>
       <div class="row"><span class="label">~200-300 Hz:</span><span class="val">Cut if muddy or honky</span></div>
       <div class="row"><span class="label">~3-5 kHz:</span><span class="val">Gentle boost for presence</span></div>
       <div class="row"><span class="label">FX:</span><span class="val">Light reverb via AUX 3 &mdash; subtle</span></div>
@@ -632,7 +632,7 @@
     <div class="card card-accent-amber">
       <h3>Fiddle (DI)</h3>
       <hr class="divider">
-      <div class="row"><span class="label">HPF:</span><span class="val"><span class="badge badge-on">ON</span> but conservative &mdash; keep body</span></div>
+      <div class="row"><span class="label">100 Hz btn:</span><span class="val"><span class="badge badge-on">ON</span> safe &mdash; fiddle's lowest note is above 100 Hz</span></div>
       <div class="row"><span class="label">~2-4 kHz:</span><span class="val">Cut harshness &mdash; DI fiddle is scratchy here</span></div>
       <div class="row"><span class="label">~200-250 Hz:</span><span class="val">Small boost if it sounds thin</span></div>
       <div class="row"><span class="label">FX:</span><span class="val">Reverb helps DI sound natural</span></div>
@@ -704,7 +704,7 @@
       <hr class="divider">
       <div class="row"><span class="label">DI box:</span><span class="val">A small box that converts an instrument's signal (bass, fiddle pickup) into a balanced signal the mixer can use via XLR.</span></div>
       <hr class="divider">
-      <div class="row"><span class="label">HPF:</span><span class="val">"High-Pass Filter" &mdash; a button that cuts deep rumble below ~80 Hz. Cleans up most signals.</span></div>
+      <div class="row"><span class="label">100 Hz / HPF:</span><span class="val">"High-Pass Filter" &mdash; the button under the gain knob. Cuts everything below 100 Hz. Press it on every channel except bass.</span></div>
     </div>
     <div class="card">
       <div class="row"><span class="label">EQ:</span><span class="val">Knobs that let you boost or cut specific frequency ranges (bass/mid/treble) to shape the tone.</span></div>
