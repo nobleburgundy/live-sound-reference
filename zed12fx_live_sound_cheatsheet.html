@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZED-12FX Live Sound Cheatsheet</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif); background: var(--color-background-secondary, #f5f5f3); color: var(--color-text-primary, #1a1a1a); -webkit-text-size-adjust: 100%; }
+
+  .sheet { padding: 16px; max-width: 680px; margin: 0 auto; }
+
+  /* Title */
+  .title-bar { margin-bottom: 16px; border-bottom: 1.5px solid var(--color-border-primary, #d4d4d0); padding-bottom: 10px; }
+  .title-bar h1 { font-size: 18px; font-weight: 600; color: var(--color-text-primary, #1a1a1a); line-height: 1.3; }
+  .title-bar .subtitle { font-size: 13px; color: var(--color-text-secondary, #6b6b68); margin-top: 2px; }
+
+  /* Section labels */
+  .section-label {
+    font-size: 11px; font-weight: 600; color: var(--color-text-tertiary, #8c8c89);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin: 20px 0 8px; padding-left: 2px;
+  }
+  .section-label:first-of-type { margin-top: 0; }
+
+  /* Card grid — single column on mobile, multi on wider */
+  .grid { display: grid; gap: 8px; margin-bottom: 0; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr; }
+
+  @media (min-width: 480px) {
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  }
+
+  /* Cards */
+  .card {
+    background: var(--color-background-primary, #ffffff);
+    border: 0.5px solid var(--color-border-tertiary, #e5e5e2);
+    border-radius: var(--border-radius-md, 8px);
+    padding: 12px 14px;
+  }
+  .card h2 {
+    font-size: 11px; font-weight: 600;
+    color: var(--color-text-secondary, #6b6b68);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  .card h3 { font-size: 14px; font-weight: 600; color: var(--color-text-primary, #1a1a1a); margin-bottom: 4px; }
+  .card p, .card li { font-size: 13px; color: var(--color-text-secondary, #6b6b68); line-height: 1.55; }
+
+  /* Accent borders */
+  .card-accent-amber  { border-left: 3px solid #BA7517; border-radius: 0 var(--border-radius-md, 8px) var(--border-radius-md, 8px) 0; }
+  .card-accent-teal   { border-left: 3px solid #0F6E56; border-radius: 0 var(--border-radius-md, 8px) var(--border-radius-md, 8px) 0; }
+  .card-accent-blue   { border-left: 3px solid #185FA5; border-radius: 0 var(--border-radius-md, 8px) var(--border-radius-md, 8px) 0; }
+  .card-accent-coral  { border-left: 3px solid #993C1D; border-radius: 0 var(--border-radius-md, 8px) var(--border-radius-md, 8px) 0; }
+  .card-accent-purple { border-left: 3px solid #534AB7; border-radius: 0 var(--border-radius-md, 8px) var(--border-radius-md, 8px) 0; }
+
+  /* Badges */
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 4px; margin-right: 2px; vertical-align: middle; }
+  .badge-on   { background: #E1F5EE; color: #085041; }
+  .badge-off  { background: #F1EFE8; color: #444441; }
+  .badge-warn { background: #FAEEDA; color: #633806; }
+
+  /* Tags */
+  .tag { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; display: inline-block; vertical-align: middle; }
+  .tag-pre  { background: #E6F1FB; color: #0C447C; }
+  .tag-post { background: #FAEEDA; color: #633806; }
+
+  /* Steps */
+  .steps { display: grid; gap: 6px; }
+  .step { display: flex; gap: 10px; align-items: flex-start; }
+  .step-num {
+    flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--color-background-secondary, #f5f5f3);
+    border: 1px solid var(--color-border-secondary, #d4d4d0);
+    font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-text-secondary, #6b6b68); margin-top: 1px;
+  }
+  .step p { font-size: 13px; color: var(--color-text-secondary, #6b6b68); line-height: 1.5; }
+
+  /* Key-value rows inside cards */
+  .row { margin-bottom: 6px; display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+  .row:last-child { margin-bottom: 0; }
+  .row .label { font-size: 13px; font-weight: 600; color: var(--color-text-primary, #1a1a1a); min-width: 72px; flex-shrink: 0; }
+  .row .val { font-size: 13px; color: var(--color-text-secondary, #6b6b68); }
+
+  .divider { border: none; border-top: 0.5px solid var(--color-border-tertiary, #e5e5e2); margin: 8px 0; }
+
+  /* Two-column layout that stacks on mobile */
+  .two-col { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  @media (min-width: 480px) {
+    .two-col { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* Frequency separation callout */
+  .freq-split { display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .freq-split .freq-item {
+    background: var(--color-background-primary, #ffffff);
+    border: 0.5px solid var(--color-border-tertiary, #e5e5e2);
+    border-radius: var(--border-radius-md, 8px);
+    padding: 12px 14px;
+  }
+  @media (min-width: 480px) {
+    .freq-split { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* Small room tips list */
+  .tips-list { list-style: none; padding: 0; }
+  .tips-list li {
+    font-size: 13px; color: var(--color-text-secondary, #6b6b68); line-height: 1.55;
+    padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary, #e5e5e2);
+  }
+  .tips-list li:last-child { border-bottom: none; padding-bottom: 0; }
+  .tips-list li:first-child { padding-top: 0; }
+
+  /* Inline strong */
+  strong { color: var(--color-text-primary, #1a1a1a); }
+
+  /* CSS-only lightbox — full-width scrollable */
+  .lightbox {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 1000;
+  }
+  .lightbox:target { opacity: 1; pointer-events: auto; }
+  .lightbox-close {
+    display: block; padding: 8px 0; cursor: zoom-out;
+  }
+  .lightbox img {
+    width: 100%; height: auto; display: block;
+  }
+
+  /* Walkthrough section */
+  .walkthrough { margin-bottom: 0; }
+  .walkthrough .phase { margin-bottom: 12px; }
+  .walkthrough .phase:last-child { margin-bottom: 0; }
+  .phase-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    background: var(--color-background-primary, #ffffff);
+    border: 0.5px solid var(--color-border-tertiary, #e5e5e2);
+    border-radius: var(--border-radius-md, 8px) var(--border-radius-md, 8px) 0 0;
+    border-bottom: 1.5px solid var(--color-border-primary, #d4d4d0);
+  }
+  .phase-header .phase-num {
+    flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--color-text-primary, #1a1a1a);
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-background-primary, #ffffff);
+  }
+  .phase-header h3 { font-size: 14px; font-weight: 600; color: var(--color-text-primary, #1a1a1a); }
+  .phase-header .phase-desc { font-size: 12px; color: var(--color-text-secondary, #6b6b68); }
+  .phase-body {
+    background: var(--color-background-primary, #ffffff);
+    border: 0.5px solid var(--color-border-tertiary, #e5e5e2);
+    border-top: none;
+    border-radius: 0 0 var(--border-radius-md, 8px) var(--border-radius-md, 8px);
+    padding: 12px 14px;
+  }
+  .phase-body .inst-step {
+    padding: 10px 0;
+    border-bottom: 0.5px solid var(--color-border-tertiary, #e5e5e2);
+  }
+  .phase-body .inst-step:last-child { border-bottom: none; padding-bottom: 0; }
+  .phase-body .inst-step:first-child { padding-top: 0; }
+  .inst-step .inst-name {
+    font-size: 13px; font-weight: 600; color: var(--color-text-primary, #1a1a1a); margin-bottom: 4px;
+  }
+  .inst-step p, .inst-step li {
+    font-size: 13px; color: var(--color-text-secondary, #6b6b68); line-height: 1.6;
+  }
+  .inst-step ul { padding-left: 16px; margin: 0; }
+  .inst-step ul li { margin-bottom: 3px; }
+  .inst-step ul li:last-child { margin-bottom: 0; }
+  .callout {
+    background: #FAEEDA; border-radius: 6px; padding: 8px 12px; margin-top: 8px;
+    font-size: 12px; color: #633806; line-height: 1.5;
+  }
+  .callout-blue {
+    background: #E6F1FB; border-radius: 6px; padding: 8px 12px; margin-top: 8px;
+    font-size: 12px; color: #0C447C; line-height: 1.5;
+  }
+  .ch-badge {
+    display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px;
+    border-radius: 3px; margin-right: 4px; vertical-align: middle;
+    background: var(--color-background-secondary, #f5f5f3);
+    border: 1px solid var(--color-border-secondary, #d4d4d0);
+    color: var(--color-text-secondary, #6b6b68);
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="title-bar">
+    <h1>Allen &amp; Heath ZED-12FX</h1>
+    <div class="subtitle">Live Sound Setup Guide &mdash; Vocals + Fiddle DI + E. Guitar mic + Bass DI</div>
+  </div>
+
+  <!-- RESET THE BOARD -->
+  <div class="section-label">Before soundcheck &mdash; reset the board</div>
+  <div class="grid grid-4">
+    <div class="card">
+      <h2>Faders</h2>
+      <p>Slide all channel faders <strong>all the way down</strong>. Master fader and monitor knob stay <strong>down</strong> too for now.</p>
+    </div>
+    <div class="card">
+      <h2>EQ</h2>
+      <p>Turn all EQ knobs to <strong>12 o'clock</strong> (straight up). This means "no change" &mdash; flat.</p>
+    </div>
+    <div class="card">
+      <h2>AUX sends</h2>
+      <p>Turn all AUX knobs fully <strong>left</strong> (counter-clockwise). That's zero &mdash; nothing being sent.</p>
+    </div>
+    <div class="card">
+      <h2>FX</h2>
+      <p>FX return fader <strong>all the way down</strong>. You'll add reverb later, after everything else is set.</p>
+    </div>
+  </div>
+
+  <!-- AUX ROUTING -->
+  <div class="section-label">AUX routing</div>
+  <div class="grid grid-3">
+    <div class="card card-accent-blue">
+      <h2><span class="tag tag-pre">Pre-fader</span> AUX 1</h2>
+      <p>This powers your <strong>monitor wedge</strong> (the speaker on stage that faces the band). It's independent &mdash; when you change the main volume for the audience, the monitors don't change.</p>
+    </div>
+    <div class="card card-accent-blue">
+      <h2><span class="tag tag-pre">Pre-fader</span> AUX 2</h2>
+      <p>A second, separate monitor mix &mdash; useful if two musicians need to hear different things. If you only have one wedge, leave all AUX 2 knobs at zero.</p>
+    </div>
+    <div class="card card-accent-amber">
+      <h2><span class="tag tag-post">Post-fader</span> AUX 3</h2>
+      <p>Sends signal to the board's built-in reverb/effects. When you turn the main fader down, this goes down too &mdash; so the reverb fades naturally with the instrument.</p>
+    </div>
+  </div>
+
+  <!-- CHANNEL ASSIGNMENT -->
+  <div class="section-label">Channel assignment</div>
+  <div class="grid grid-4">
+    <div class="card card-accent-purple" style="text-align:center;">
+      <h2><span class="ch-badge">CH 1</span></h2>
+      <p><strong>Vocals</strong><br>XLR from mic</p>
+    </div>
+    <div class="card card-accent-amber" style="text-align:center;">
+      <h2><span class="ch-badge">CH 2</span></h2>
+      <p><strong>Fiddle</strong><br>XLR from DI box</p>
+    </div>
+    <div class="card card-accent-coral" style="text-align:center;">
+      <h2><span class="ch-badge">CH 3</span></h2>
+      <p><strong>E. Guitar</strong><br>XLR from amp mic</p>
+    </div>
+    <div class="card card-accent-teal" style="text-align:center;">
+      <h2><span class="ch-badge">CH 4</span></h2>
+      <p><strong>Bass</strong><br>XLR from DI box</p>
+    </div>
+  </div>
+
+  <!-- FULL SETUP WALKTHROUGH -->
+  <div class="section-label">Full setup walkthrough</div>
+  <div class="walkthrough">
+
+    <!-- PHASE 1: PATCHING -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">1</div>
+        <div><h3>Patch &amp; prepare</h3><div class="phase-desc">Cables in, phantom power, board zeroed</div></div>
+      </div>
+      <div class="phase-body">
+        <div class="inst-step">
+          <ul>
+            <li>Confirm all faders are <strong>down</strong>, EQ knobs at <strong>12 o'clock</strong>, AUX sends at <strong>zero</strong>, FX return at <strong>zero</strong>.</li>
+            <li>Plug <strong>vocals mic</strong> into <strong>Ch 1</strong> XLR. Plug <strong>fiddle DI</strong> into <strong>Ch 2</strong> XLR. Plug <strong>guitar amp mic</strong> into <strong>Ch 3</strong> XLR. Plug <strong>bass DI</strong> into <strong>Ch 4</strong> XLR.</li>
+            <li>If the fiddle or bass DI box needs phantom power, press the <strong>48V button</strong> on that channel. Wait 30 seconds for it to stabilise. (Most active DI boxes don't need it &mdash; check the DI.)</li>
+            <li>Connect the <strong>monitor wedge</strong> to the <strong>AUX 1 output</strong> on the back of the board (TRS or XLR depending on your cable). If you have a second monitor, connect it to <strong>AUX 2</strong>.</li>
+            <li>Connect <strong>main PA speakers</strong> to the <strong>Main L/R outputs</strong>.</li>
+            <li>Plug your <strong>headphones</strong> into the headphone jack on the front of the board.</li>
+          </ul>
+          <div class="callout"><strong>Before turning on:</strong> Check that the master fader and monitor/AUX master knobs are <strong>down</strong>. Power on in order: mixer first, then amps/powered speakers. Reverse when powering off.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2: GAIN STAGING WITH PFL -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">2</div>
+        <div><h3>Set gain &mdash; one channel at a time with PFL</h3><div class="phase-desc">This is the most important step. Get this right and everything else is easier.</div></div>
+      </div>
+      <div class="phase-body">
+        <div class="inst-step">
+          <div class="callout-blue"><strong>What PFL does on the ZED-12FX:</strong> Press the <strong>PFL</strong> button on a channel to route that channel's <em>pre-fader</em> signal to your <strong>headphones</strong> and the <strong>main meter</strong>. This lets you hear and meter the channel in isolation &mdash; even with the fader down. The audience hears nothing. Only one PFL at a time. Press it again to deselect.</div>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 1</span> Vocals</div>
+          <ul>
+            <li>Press the <strong>PFL button</strong> on Ch 1. The PFL LED lights up and the main meter now shows Ch 1's level.</li>
+            <li>Ask the singer to sing at their <strong>loudest</strong> (not a whisper &mdash; you need to set gain for peaks).</li>
+            <li>Slowly turn the <strong>gain knob</strong> clockwise. Watch the meter: you want the signal peaking around <strong>0 dB</strong> &mdash; hitting yellow, <em>just barely</em> touching red on the loudest notes.</li>
+            <li>If the meter is buried in the red, back the gain off. If it's only in the green, turn it up more.</li>
+            <li>Press <strong>PFL again</strong> to deselect Ch 1 when done.</li>
+          </ul>
+          <div class="callout"><strong>Vocal gain tip:</strong> Leave a little headroom. Singers almost always get louder during the show than during soundcheck. Better to be a touch low than clipping mid-set.</div>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 2</span> Fiddle (DI)</div>
+          <ul>
+            <li>Press <strong>PFL on Ch 2</strong>.</li>
+            <li>Ask the fiddle player to play their <strong>loudest passage</strong>.</li>
+            <li>Set the <strong>gain knob</strong> so the meter peaks around <strong>0 dB</strong> (yellow, barely red).</li>
+            <li>DI signals can be hot &mdash; if you're already in the red with the gain barely up, check if the DI box has a <strong>pad switch</strong> and engage it.</li>
+            <li>Deselect PFL when done.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 3</span> Electric guitar (mic on amp)</div>
+          <ul>
+            <li>Press <strong>PFL on Ch 3</strong>.</li>
+            <li>Ask the guitarist to play at their <strong>loudest</strong> &mdash; especially any pedal-boosted parts or lead tones. You need to set gain for their peak volume, not their clean tone.</li>
+            <li>Set <strong>gain</strong> to peak around <strong>0 dB</strong> on the meter.</li>
+            <li>If they use heavy distortion, the signal is already compressed &mdash; you'll see less dynamic range on the meter. That's normal.</li>
+            <li>Deselect PFL when done.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 4</span> Bass (DI)</div>
+          <ul>
+            <li>Press <strong>PFL on Ch 4</strong>.</li>
+            <li>Ask the bass player to <strong>dig in hard</strong> on their heaviest parts.</li>
+            <li>Set <strong>gain</strong> to peak around <strong>0 dB</strong>. Bass eats headroom fast &mdash; don't set this too hot.</li>
+            <li>If the DI signal is very hot, use the DI box pad or the ZED's <strong>line-level input</strong> (TRS jack) instead of the XLR mic input.</li>
+            <li>Deselect PFL when done.</li>
+          </ul>
+          <div class="callout"><strong>You're done with gain.</strong> Do not touch the gain knobs again unless something fundamental changes (different mic, different instrument, battery dying in a DI). From now on, control volume with <strong>faders only</strong>.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3: MONITORS -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">3</div>
+        <div><h3>Build the monitor mix (AUX 1)</h3><div class="phase-desc">Musicians need to hear themselves before you worry about FOH</div></div>
+      </div>
+      <div class="phase-body">
+        <div class="inst-step">
+          <div class="callout-blue"><strong>How AUX 1 monitors work on the ZED-12FX:</strong> AUX 1 is <strong>pre-fader</strong> by default. Each channel has its own AUX 1 knob. Turning that knob sends signal to the AUX 1 output (your monitor wedge) <em>independently</em> of the channel fader. This means you can build a monitor mix that doesn't change when you adjust the FOH faders during the show.</div>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name">Set the AUX 1 master level</div>
+          <ul>
+            <li>On the master section, find the <strong>AUX 1 master knob</strong> and set it to about <strong>12 o'clock</strong> (unity). This gives you room to go up or down later.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name">Ask each musician what they need</div>
+          <p>Go one at a time. Stand near the monitor wedge or have the musician give you hand signals (point up = more, flat palm = good, point down = less).</p>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 1</span> Vocals in monitor</div>
+          <ul>
+            <li>Turn the <strong>AUX 1 knob on Ch 1</strong> up while the singer sings.</li>
+            <li>The singer almost always wants <strong>themselves loudest</strong> in the monitor. Start here.</li>
+            <li>Set it to a comfortable level &mdash; they should hear themselves clearly but it shouldn't be screaming.</li>
+          </ul>
+          <div class="callout"><strong>Feedback warning:</strong> Vocal monitors are the #1 cause of feedback. If the wedge starts ringing, <strong>turn AUX 1 on Ch 1 down</strong> immediately. Don't push it &mdash; find the level just below where it starts feeding back and stay there.</div>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 2</span> Fiddle in monitor</div>
+          <ul>
+            <li>Turn <strong>AUX 1 on Ch 2</strong> up. The fiddle player will likely want a decent amount of themselves.</li>
+            <li>Since the fiddle is on a DI (no acoustic volume on stage), they depend on the monitor to hear themselves. Give them enough.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 3</span> Electric guitar in monitor</div>
+          <ul>
+            <li>Often <strong>not needed</strong> or very little. The guitarist has their amp right behind them.</li>
+            <li>Turn <strong>AUX 1 on Ch 3</strong> up only if the guitarist specifically asks for it.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 4</span> Bass in monitor</div>
+          <ul>
+            <li>Bass players going through a DI sometimes want a bit of themselves in the monitor. Ask them.</li>
+            <li>If they have a bass amp on stage, they may not need any.</li>
+            <li>Turn <strong>AUX 1 on Ch 4</strong> up to taste.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name">Second monitor (AUX 2) &mdash; optional</div>
+          <ul>
+            <li>If you have a second wedge (e.g., one for the singer, one for the fiddle player), connect it to <strong>AUX 2 output</strong> and repeat the process using each channel's <strong>AUX 2 knobs</strong>.</li>
+            <li>If everyone shares one wedge, leave AUX 2 at zero.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4: FOH MIX -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">4</div>
+        <div><h3>Build the FOH (front of house) mix</h3><div class="phase-desc">What the audience hears through the PA</div></div>
+      </div>
+      <div class="phase-body">
+        <div class="inst-step">
+          <div class="inst-name">Bring up the master fader</div>
+          <ul>
+            <li>Push the <strong>master L/R fader</strong> to <strong>0 (unity)</strong>. Leave it here &mdash; control the mix with channel faders, not the master.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name">Bring up channels one at a time</div>
+          <p>Ask the band to play a song together. Bring faders up in this order:</p>
+          <ul>
+            <li><strong>Ch 4 &mdash; Bass first.</strong> Push the fader up until you hear it solidly in the PA. This is your foundation.</li>
+            <li><strong>Ch 3 &mdash; Electric guitar.</strong> Bring it up to sit with the bass. The amp is already filling the room, so you may need less than you think from the PA.</li>
+            <li><strong>Ch 2 &mdash; Fiddle.</strong> The DI fiddle has no stage volume, so it needs the PA. Bring it up until it sits clearly on top of the rhythm section.</li>
+            <li><strong>Ch 1 &mdash; Vocals last.</strong> Bring the vocal fader up until the voice sits <em>on top</em> of everything. Vocals should always be the most audible element.</li>
+          </ul>
+          <div class="callout-blue"><strong>Where should the faders be?</strong> There's no exact number. Most faders will end up somewhere between <strong>-10 and 0 (unity)</strong>. If a fader is pushed way past 0 to be heard, the gain was probably set too low &mdash; go back to Phase 2 and re-PFL that channel.</div>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name">Check the main meter</div>
+          <ul>
+            <li>With all faders up and the band playing, the <strong>main L/R meter</strong> should average around <strong>0 dB</strong>.</li>
+            <li>Peaks should hit no higher than <strong>+3 to +6 dB</strong>. If you're constantly in the red, pull all faders down proportionally.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 5: EQ -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">5</div>
+        <div><h3>EQ each channel</h3><div class="phase-desc">Cut problems first, boost only if needed</div></div>
+      </div>
+      <div class="phase-body">
+        <div class="inst-step">
+          <div class="callout-blue"><strong>ZED-12FX EQ layout (mono channels):</strong> Each channel has <strong>HF</strong> (high frequency, shelving), <strong>Mid</strong> (sweepable &mdash; turn the frequency knob to choose where, then cut/boost), and <strong>LF</strong> (low frequency, shelving). There's also a <strong>HPF button</strong> (high-pass filter, ~80 Hz) that cuts everything below ~80 Hz with one press.</div>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 1</span> Vocals EQ</div>
+          <ul>
+            <li>Press the <strong>HPF button</strong> &mdash; always on for vocals. Cuts low-end rumble, handling noise, and stage vibration.</li>
+            <li><strong>LF:</strong> If the voice sounds muddy or boomy, cut a little (turn counter-clockwise).</li>
+            <li><strong>Mid:</strong> Sweep the frequency knob to the <strong>200&ndash;400 Hz</strong> range. If you hear boxiness or honk, cut slightly. Then sweep to <strong>3&ndash;5 kHz</strong> &mdash; a gentle boost here adds presence and clarity.</li>
+            <li><strong>HF:</strong> A small boost adds "air" and sibilance. Leave flat if the mic is already bright (e.g., SM58 doesn't usually need HF boost).</li>
+          </ul>
+          <div class="callout"><strong>PFL to check EQ:</strong> Press PFL on Ch 1 while adjusting EQ. Listen in your headphones to hear exactly what you're changing without the PA colouring it. Deselect PFL when done to hear the full mix again.</div>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 2</span> Fiddle EQ</div>
+          <ul>
+            <li>Press <strong>HPF</strong> &mdash; on, but listen carefully. If it thins out the fiddle's body too much, you may leave it off. On the ZED-12FX the HPF is around 80 Hz, which is usually safe for fiddle.</li>
+            <li><strong>Mid:</strong> This is the critical one. Sweep to <strong>2&ndash;4 kHz</strong> and <strong>cut</strong>. DI fiddle is almost always scratchy and harsh in this range. This single cut makes the biggest difference.</li>
+            <li><strong>LF:</strong> If the fiddle sounds thin after the mid cut, add a small LF boost to bring back body (<strong>200&ndash;250 Hz</strong> range).</li>
+            <li><strong>HF:</strong> Leave flat or cut slightly if there's too much string noise.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 3</span> Electric guitar EQ</div>
+          <ul>
+            <li>Press <strong>HPF</strong> &mdash; on. Cuts low-end rumble from the amp and mic.</li>
+            <li><strong>Mid:</strong> Sweep to <strong>~300 Hz</strong>. If the guitar sounds boxy or muddy, cut here.</li>
+            <li>Then sweep to <strong>2&ndash;5 kHz</strong> and <strong>cut slightly</strong>. This clears space for the fiddle's presence range. The guitar doesn't need to dominate here &mdash; it has its amp volume to fill the room.</li>
+            <li><strong>LF:</strong> Usually leave flat. The guitar's low-mid grind (100&ndash;500 Hz) is its character.</li>
+            <li><strong>HF:</strong> Leave flat unless there's excessive hiss or string squeak.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name"><span class="ch-badge">CH 4</span> Bass EQ</div>
+          <ul>
+            <li><strong>HPF: OFF.</strong> Bass needs its low end &mdash; don't cut it.</li>
+            <li><strong>Mid:</strong> Sweep to <strong>300&ndash;500 Hz</strong> and <strong>cut</strong> if the bass sounds boxy or muddy. This is the most common bass fix.</li>
+            <li><strong>LF:</strong> A small boost at ~80 Hz adds warmth and thump. Don't overdo it &mdash; too much low end eats headroom and muddies the whole mix.</li>
+            <li><strong>HF:</strong> Usually leave flat. A touch of boost can bring out finger/pick attack if the bass sounds too dull.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 6: FX -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">6</div>
+        <div><h3>Add FX (reverb)</h3><div class="phase-desc">Via AUX 3 &mdash; subtle is the goal</div></div>
+      </div>
+      <div class="phase-body">
+        <div class="inst-step">
+          <div class="callout-blue"><strong>How FX works on the ZED-12FX:</strong> AUX 3 is <strong>post-fader</strong> and feeds the internal FX processor. Each channel's AUX 3 knob controls how much of that channel goes to the FX. The <strong>FX return fader</strong> controls how much of the wet (effected) signal comes back into the main mix.</div>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name">Choose an FX preset</div>
+          <ul>
+            <li>Use the <strong>FX select knob</strong> to choose a <strong>hall or plate reverb</strong>. For live sound, a medium hall works well. Avoid long/cathedral reverbs &mdash; they smear everything.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name">Send vocals to FX</div>
+          <ul>
+            <li>Turn the <strong>AUX 3 knob on Ch 1</strong> (vocals) up to about <strong>10&ndash;11 o'clock</strong>. This sends some vocal signal to the reverb.</li>
+            <li>Bring the <strong>FX return fader</strong> up until you hear a subtle reverb on the voice. You should feel it more than hear it &mdash; if you can obviously hear the reverb, it's probably too much.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name">Send fiddle to FX</div>
+          <ul>
+            <li>Turn <strong>AUX 3 on Ch 2</strong> (fiddle) up slightly. Reverb helps a DI fiddle sound less "direct" and more natural/acoustic.</li>
+            <li>Use less than the vocal &mdash; try <strong>9&ndash;10 o'clock</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name">Guitar and bass &mdash; usually no FX</div>
+          <ul>
+            <li>Leave <strong>AUX 3 on Ch 3 and Ch 4</strong> at <strong>zero</strong>. The guitarist likely has their own reverb/effects pedals. Bass rarely benefits from reverb &mdash; it muddies the low end.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 7: FINAL CHECK -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">7</div>
+        <div><h3>Final check before the show</h3><div class="phase-desc">Walk the room, listen, verify</div></div>
+      </div>
+      <div class="phase-body">
+        <div class="inst-step">
+          <ul>
+            <li>Ask the band to play a full song at show volume.</li>
+            <li><strong>Walk the room</strong> &mdash; listen from different spots. The mix may sound different at the back vs. the front.</li>
+            <li>Check: can you hear the <strong>vocals clearly</strong> over everything? If not, don't just push the vocal fader &mdash; pull competing instruments down slightly or cut them at 3&ndash;5 kHz.</li>
+            <li>Check the <strong>main meter</strong>: averaging around 0 dB, peaks no higher than +3 to +6.</li>
+            <li><strong>Mute any unused channels</strong> &mdash; open channels pick up stage noise and reduce headroom.</li>
+            <li>Confirm <strong>monitor levels</strong> with each musician one last time. Thumbs up from everyone means you're ready.</li>
+          </ul>
+        </div>
+
+        <div class="inst-step">
+          <div class="inst-name">PFL during the show</div>
+          <ul>
+            <li>If something sounds wrong mid-show, press <strong>PFL on the suspect channel</strong> and listen in your headphones. You'll hear that channel in isolation and can diagnose the problem without the audience hearing you make changes.</li>
+            <li>Make <strong>small moves</strong>. A 2&ndash;3 dB fader adjustment is usually enough. Big moves are jarring.</li>
+            <li>If a channel is unused between songs (e.g., fiddle player takes a break), <strong>mute it</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CHANNEL EQ GUIDE -->
+  <div class="section-label">Channel EQ guide</div>
+  <div class="grid grid-2">
+    <div class="card card-accent-coral">
+      <h3>Electric guitar (mic on amp)</h3>
+      <hr class="divider">
+      <div class="row"><span class="label">HPF:</span><span class="val"><span class="badge badge-on">ON</span> cuts rumble/mud</span></div>
+      <div class="row"><span class="label">~300 Hz:</span><span class="val">Cut if boxy or muddy</span></div>
+      <div class="row"><span class="label">~2-5 kHz:</span><span class="val">Cut slightly &mdash; leave this range for fiddle</span></div>
+      <div class="row"><span class="label">Monitor:</span><span class="val">Guitarist may not need much &mdash; they have their amp</span></div>
+    </div>
+    <div class="card card-accent-teal">
+      <h3>Bass guitar (DI)</h3>
+      <hr class="divider">
+      <div class="row"><span class="label">HPF:</span><span class="val"><span class="badge badge-off">OFF</span> bass needs low end</span></div>
+      <div class="row"><span class="label">~300-500 Hz:</span><span class="val">Cut to reduce boxy mud</span></div>
+      <div class="row"><span class="label">~80 Hz:</span><span class="val">Small boost for warmth</span></div>
+      <div class="row"><span class="label">Gain:</span><span class="val"><span class="badge badge-warn">Watch</span> bass eats headroom fast</span></div>
+    </div>
+    <div class="card card-accent-purple">
+      <h3>Vocals (mic)</h3>
+      <hr class="divider">
+      <div class="row"><span class="label">HPF:</span><span class="val"><span class="badge badge-on">ON</span> always</span></div>
+      <div class="row"><span class="label">~200-300 Hz:</span><span class="val">Cut if muddy or honky</span></div>
+      <div class="row"><span class="label">~3-5 kHz:</span><span class="val">Gentle boost for presence</span></div>
+      <div class="row"><span class="label">FX:</span><span class="val">Light reverb via AUX 3 &mdash; subtle</span></div>
+      <div class="row"><span class="label">Feedback:</span><span class="val"><span class="badge badge-warn">Most at risk</span> conservative gain</span></div>
+    </div>
+    <div class="card card-accent-amber">
+      <h3>Fiddle (DI)</h3>
+      <hr class="divider">
+      <div class="row"><span class="label">HPF:</span><span class="val"><span class="badge badge-on">ON</span> but conservative &mdash; keep body</span></div>
+      <div class="row"><span class="label">~2-4 kHz:</span><span class="val">Cut harshness &mdash; DI fiddle is scratchy here</span></div>
+      <div class="row"><span class="label">~200-250 Hz:</span><span class="val">Small boost if it sounds thin</span></div>
+      <div class="row"><span class="label">FX:</span><span class="val">Reverb helps DI sound natural</span></div>
+      <div class="row"><span class="label">Monitor:</span><span class="val">Fiddle player needs themselves up &mdash; acoustic feel</span></div>
+    </div>
+  </div>
+
+  <!-- FREQUENCY SEPARATION -->
+  <div class="section-label">Frequency separation &mdash; guitar vs fiddle</div>
+  <div class="freq-split">
+    <div class="freq-item">
+      <p><strong>Guitar owns:</strong> low-mid grind &mdash; 100-500 Hz. Cut guitar slightly in the 2-5 kHz presence range.</p>
+    </div>
+    <div class="freq-item">
+      <p><strong>Fiddle owns:</strong> upper-mid sparkle &mdash; 1-5 kHz. Give it air, cut slightly in guitar's low-mid range.</p>
+    </div>
+  </div>
+
+  <!-- SMALL ROOM -->
+  <div class="section-label">Small room (vocals + fiddle only)</div>
+  <div class="card">
+    <div class="two-col">
+      <ul class="tips-list">
+        <li>Only 2 channels &mdash; get gain right before anything else</li>
+        <li>PA is just lifting voice and fiddle above the room &mdash; not carrying the band</li>
+        <li>Ask the band to turn amps down &mdash; don't fight them with the PA</li>
+      </ul>
+      <ul class="tips-list">
+        <li><strong>Vocal:</strong> clarity at 3-5 kHz, cut a little at 800 Hz-2 kHz</li>
+        <li><strong>Fiddle:</strong> body at 800 Hz-2 kHz, cut a little at 3-5 kHz</li>
+        <li>Monitor mix is simple &mdash; they can likely hear amps naturally</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DURING THE SHOW -->
+  <div class="section-label">During the show</div>
+  <div class="grid grid-3">
+    <div class="card">
+      <h2>Feedback (screech/ring)</h2>
+      <p><strong>Don't panic.</strong> Pull the channel fader down immediately. Then figure out which channel it was, and turn the AUX 1 (monitor) send down slightly on that channel. The usual culprits: vocal mic or fiddle.</p>
+    </div>
+    <div class="card">
+      <h2>Making adjustments</h2>
+      <p><strong>Small moves only.</strong> Nudge faders a tiny bit &mdash; the audience notices big jumps. If something sounds wrong, press PFL on that channel and listen in your headphones to figure out the problem privately.</p>
+    </div>
+    <div class="card">
+      <h2>Can't hear the vocals?</h2>
+      <p><strong>Don't just push the vocal fader up.</strong> Instead, pull the guitar and fiddle faders down a touch. Or cut their EQ slightly in the 3-5 kHz range. Making space is better than making everything louder.</p>
+    </div>
+  </div>
+
+  <!-- GLOSSARY -->
+  <div class="section-label">Glossary &mdash; terms used in this guide</div>
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="row"><span class="label">Gain:</span><span class="val">Controls how much the mic/DI signal is amplified at the input. Set once, then don't touch it.</span></div>
+      <hr class="divider">
+      <div class="row"><span class="label">Fader:</span><span class="val">The sliding volume control for each channel. This is what you move during the show.</span></div>
+      <hr class="divider">
+      <div class="row"><span class="label">PFL:</span><span class="val">"Pre-Fader Listen." A button that sends that channel to your headphones so you can hear it alone. The audience doesn't hear it.</span></div>
+      <hr class="divider">
+      <div class="row"><span class="label">Unity (0 dB):</span><span class="val">The "default" position for a fader &mdash; marked "0" on the board. Not adding or removing level.</span></div>
+    </div>
+    <div class="card">
+      <div class="row"><span class="label">FOH:</span><span class="val">"Front of House" &mdash; what the audience hears through the main PA speakers.</span></div>
+      <hr class="divider">
+      <div class="row"><span class="label">AUX send:</span><span class="val">A separate output on the board. You use it to send a custom mix to monitors or FX.</span></div>
+      <hr class="divider">
+      <div class="row"><span class="label">DI box:</span><span class="val">A small box that converts an instrument's signal (bass, fiddle pickup) into a balanced signal the mixer can use via XLR.</span></div>
+      <hr class="divider">
+      <div class="row"><span class="label">HPF:</span><span class="val">"High-Pass Filter" &mdash; a button that cuts deep rumble below ~80 Hz. Cleans up most signals.</span></div>
+    </div>
+    <div class="card">
+      <div class="row"><span class="label">EQ:</span><span class="val">Knobs that let you boost or cut specific frequency ranges (bass/mid/treble) to shape the tone.</span></div>
+      <hr class="divider">
+      <div class="row"><span class="label">Pre-fader:</span><span class="val">The signal is tapped <em>before</em> the fader &mdash; moving the fader doesn't change this send. Used for monitors.</span></div>
+      <hr class="divider">
+      <div class="row"><span class="label">Post-fader:</span><span class="val">The signal is tapped <em>after</em> the fader &mdash; if you turn the fader down, this send goes down too. Used for FX.</span></div>
+    </div>
+    <div class="card">
+      <div class="row"><span class="label">Phantom (48V):</span><span class="val">Power sent through the XLR cable to devices that need it (some DI boxes, condenser mics). Only turn on if needed.</span></div>
+      <hr class="divider">
+      <div class="row"><span class="label">Feedback:</span><span class="val">That awful loud screech/ring. Happens when a mic picks up its own amplified sound from a speaker in a loop.</span></div>
+      <hr class="divider">
+      <div class="row"><span class="label">Clipping:</span><span class="val">When the signal is too loud for the board to handle cleanly. The meter goes into the red and it sounds distorted.</span></div>
+    </div>
+  </div>
+
+  <!-- BOARD REFERENCE IMAGE -->
+  <div class="section-label">Board reference <span style="font-weight:400; text-transform:none; letter-spacing:0;">(click image to zoom)</span></div>
+  <div class="card" style="padding:8px;">
+    <a href="#lightbox">
+      <img src="zed12fx.jpeg" alt="Allen &amp; Heath ZED-12FX mixer layout" style="width:100%; height:auto; border-radius:6px; display:block; cursor:zoom-in;">
+    </a>
+  </div>
+
+  <!-- Lightbox overlay -->
+  <div class="lightbox" id="lightbox">
+    <a href="#_" class="lightbox-close">
+      <img src="zed12fx.jpeg" alt="Allen &amp; Heath ZED-12FX mixer layout">
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>
