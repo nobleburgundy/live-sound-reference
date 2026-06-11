@@ -3,7 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ZED-12FX">
 <title>ZED-12FX Live Sound Cheatsheet</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" id="apple-icon">
+<script>
+// Generate PNG apple-touch-icon from the SVG at runtime
+(function(){
+  var img = new Image();
+  img.onload = function(){
+    var c = document.createElement('canvas');
+    c.width = 180; c.height = 180;
+    var ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0, 180, 180);
+    var link = document.getElementById('apple-icon');
+    if(link) link.href = c.toDataURL('image/png');
+  };
+  img.src = 'favicon.svg';
+})();
+</script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif); background: var(--color-background-secondary, #f5f5f3); color: var(--color-text-primary, #1a1a1a); -webkit-text-size-adjust: 100%; }
